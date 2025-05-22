@@ -1,59 +1,47 @@
-
 import './App.css';
-import Textform from './Textform.js';
-import Nav from'./nav.js';
-import About from './About.js';
-import Alert from './Alert.js'
-import React,{useState} from 'react';
-//import react router
+import Navbar from './components/Navbar';
+import News from './components/News';
+import React, { Component } from 'react'
 import{
   BrowserRouter as Router,
-   Routes,
+  Routes,
   Route,
-  Link
-}from "react-router-dom"
-function App() {
-  const[mode,setMode]=useState('light')
-  const[alert,setAlert]=useState(null)
-  const show=(message,type)=>{
-    setAlert({
-      msg:message,
-      t:type
-    })
-    setTimeout(()=>{
-     setAlert(null)
-    },1000)
-  }
- const toggle=()=>{
-   if(mode==='light')
-   {
-    setMode('dark');
-    document.body.style.backgroundColor='#042743';
-    show("Dark mode has been enabled","success")
-   }
-   else
-   {
-    setMode('light');
-     document.body.style.backgroundColor='white';
-    show("light mode has been enabled","success")
-   }
-  }
-  return (
-    <>
-    <Router>
-<Nav title="TextUtils" aboutus="About" mode={mode} toggle={toggle}/>
-<Alert alert={alert}/>
-<div>
   
-  <Routes>
-  <Route path="/about" element={<About />} />
-  <Route path="/" element={<Textform title="Try TextUtils-Word Counter,Character Counter" mode={mode} show={show} />} />
-</Routes>
-</div>
- </Router>
-</>
-  );
+} from 'react-router-dom';
+import LoadingBar from "react-top-loading-bar";
+export default class App extends Component {
+  apikey=process.env.REACT_APP_NEWS_API;
+  state={
+    progress:0
+  }
+  setprogress=(progress)=>
+  
+  {
+    this.setState({progress:progress})
+  }
+  render() {
+    return (
+      <div>
+        <Router>
+        <Navbar />
+        <LoadingBar
+        height={3}
+        color="#f11946"
+        progress={this.state.progress}
+       
+      />
+        <Routes>
+          <Route exact path="/" element={<News setprogress={this.setprogress} apikey={this.apikey}country="us" category="general" key="general" />} />
+          <Route exact  path="/business" element={<News setprogress={this.setprogress} apikey={this.apikey} country="us" category="business"  key='business' />} />
+          <Route exact  path="/entertainment"element={<News setprogress={this.setprogress} apikey={this.apikey}country="us" category="entertainment" key='entertainemnt' />} />
+          <Route exact path="/general"  element={<News setprogress={this.setprogress} apikey={this.apikey}country="us" category="general"key='general' />} />
+          <Route exact path="/health"  element={<News setprogress={this.setprogress}apikey={this.apikey} country="us" category="health"key='health' />} />
+          <Route exact path="/science"element={<News setprogress={this.setprogress} apikey={this.apikey}country="us" category="science" key='science'  />} />
+          <Route exact path="/sports"element={<News setprogress={this.setprogress} apikey={this.apikey}country="us" category="sports"  key='sports'/>} />
+          <Route exact path="/technology" element={<News setprogress={this.setprogress} apikey={this.apikey}country="us" category="technology" key='technology' />} />
+        </Routes>
+      </Router>
+      </div>
+    )
+  }
 }
-
-export default App;
-
