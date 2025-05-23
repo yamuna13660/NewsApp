@@ -8,7 +8,7 @@ const News=(props)=> {
 const[articles,setarticles]=useState([]);
 const[loading,setloading]=useState(true);
 const[page,setpage]=useState(1);
-const[totalresults,settotalresults]=useState(0);
+const[totalResults,settotalresults]=useState(0);
 
 useEffect(() => {
   document.title = `${captialize(props.category)} - NewsGlance`;
@@ -33,7 +33,7 @@ useEffect(() => {
       let parsedata=await data.json();
         props.setprogress(70);
       setarticles( parsedata.articles);
-      settotalresults(parsedata.totalresults);
+      settotalresults(parsedata.totalResults);
       setloading(false);
        props.setprogress(100);
     }
@@ -44,7 +44,7 @@ useEffect(() => {
       let data= await fetch(url);
       let parsedata=await data.json();
       setarticles(articles.concat(parsedata.articles))
-      settotalresults(parsedata.totalresults);
+      settotalresults(parsedata.totalResults);
   }
     return (
       <div className='container'>
@@ -53,7 +53,7 @@ useEffect(() => {
        <InfiniteScroll
           dataLength={articles?.length||0}
           next={fetchMoreData}
-          hasMore={(articles?.length ||0)!==totalresults}
+          hasMore={(articles?.length ||0)!==totalResults}
           loader={<Spinner/>}
         >
           <div className="container">
