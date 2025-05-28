@@ -1,65 +1,27 @@
-
-import './App.css';
-import Navbar from './components/Navbar';
-import News from './components/News';
-import React, { useState } from 'react';
-import {
-   HashRouter as Router,
+import React from 'react'
+import './App.css'
+import Navbar from './components/Navbar'
+import About from'./components/About'
+import Contact from './components/Contact'
+import Home from './components/Home'
+import{
+  BrowserRouter as Router,
   Routes,
-  Route,
+  Route
 } from 'react-router-dom';
-import LoadingBar from "react-top-loading-bar";
-
-const App = () => {
-  const [progress, setProgress] = useState(0);
-
+import PracticeSet from './components/PracticeSet';
+export default function App() {
   return (
     <div>
-      <Router>
-        <Navbar />
-        <LoadingBar
-          height={3}
-          color="#f11946"
-          progress={progress}
-        />
+      <Router >
+        <Navbar/>
         <Routes>
-          <Route 
-             exact path="/"
-            element={<News setprogress={setProgress} country="us" category="general" key="general" />}
-          />
-          <Route
-            exact path="/business"
-            element={<News setprogress={setProgress} country="us" category="business" key="business" />}
-          />
-          <Route
-            exact path="/entertainment"
-            element={<News setprogress={setProgress} country="us" category="entertainment" key="entertainment" />}
-          />
-          <Route
-            exact path="/general"
-            element={<News setprogress={setProgress} country="us" category="general" key="general" />}
-          />
-          <Route
-            exact path="/health"
-            element={<News setprogress={setProgress} country="us" category="health" key="health" />}
-          />
-          <Route
-            exact path="/science"
-            element={<News setprogress={setProgress} country="us" category="science" key="science" />}
-          />
-          <Route
-            exact path="/sports"
-            element={<News setprogress={setProgress} country="us" category="sports" key="sports" />}
-          />
-          <Route
-            exact path="/technology"
-            element={<News setprogress={setProgress} country="us" category="technology" key="technology" />}
-          />
-        </Routes>
+          <Route path="/" element={ <Home/> }></Route>
+          <Route path="/practice" element={ <PracticeSet/> }></Route>
+          <Route path="/about" element={<About/>}></Route>
+           <Route path="/contact" element={<Contact/>}></Route>
+      </Routes>
       </Router>
     </div>
-  );
-};
-
-export default App;
-
+  )
+}

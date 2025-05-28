@@ -41,3 +41,16 @@
   background-color: aqua;
   color: red;
 }
+body{
+  background-color:		#f5fffa
+}
+.custom-btn
+{
+  background-color: #00bcd4;
+  color:white;
+}
+.custom-btn:hover
+{
+ background-color: white;
+ color:#00bcd4;
+}
